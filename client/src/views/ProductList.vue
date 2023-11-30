@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { getProducts, type Product } from '@/model/products';
+import { addToCart } from '@/model/shoppingCart';
 import { ref } from 'vue'
 
 const products = ref([] as Product[])
-const isLoading = ref(false)
 
-isLoading.value = true;
-setTimeout(() => {
-    products.value = getProducts()
-    isLoading.value = false;
-}, 1000)
+getProducts().then((data) => {
+    products.value = data
+})
+
 
 
 </script>
@@ -19,7 +18,6 @@ setTimeout(() => {
         <h1 class="title">
             Product List
         </h1>
-        <progress v-if="isLoading" class="progress is-success">Loading...</progress>
 
         <div class="product-list">
             <div v-for="product in products" :key="product.id" class="product">
@@ -29,7 +27,7 @@ setTimeout(() => {
                 <p>
                     <span>$</span>
                     <i class="price">{{ product.price }}</i>
-                    <button class="button is-success">+</button>
+                    <button class="button is-success" @click.prevent="addToCart(product)">+</button>
                 </p>
             </div>
         </div>
