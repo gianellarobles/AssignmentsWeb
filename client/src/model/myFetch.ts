@@ -7,7 +7,7 @@ export function rest(url: string, body?: unknown, method?: string, headers?: Hea
     return fetch(url, {
         method: method ?? (body ? "POST" : "GET"),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             ...headers
         },
         body: body ? JSON.stringify(body) : undefined
