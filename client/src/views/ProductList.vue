@@ -36,6 +36,7 @@ getProducts().then((data) => {
 
 
 <style scoped>
+
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -58,4 +59,5 @@ getProducts().then((data) => {
     font-weight: bold;
     margin-right: .5rem;
 }
+
 </style>

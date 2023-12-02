@@ -8,8 +8,27 @@ module.exports = {
         const authHeader = req.headers.authorization;
         const token = authHeader?.split(' ')[1];
         if (!token) {
-            return next()
+            return next();
         }
         const payload = userModel.verifyJWT(token);
         req.user = payload;
+        next();
+    },
+    requireUser(adminOnly = false) {
+        return function (req, res, next) {
+            if (!req.user) {
+                return next({
+                    status: 401,
+                    message: 'You must be logged in to perform this action'
+                });
+            }
+            if (adminOnly && !req.user.admin) {
+                return next({
+                    status: 403,
+                    message: 'You must be an admin to perform this action'
+                });
+            }
+            next();
+        }
+    },
 }

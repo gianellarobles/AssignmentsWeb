@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getUsers, type User } from '@/model/users';
 import { ref } from 'vue';
 
 const newTask = ref('');
@@ -16,7 +17,6 @@ const shouldDisplay = (task: { id?: number, text: string, completed: boolean }) 
     (tabState.value == 'Current' && !task.completed) ||
     (tabState.value == 'Completed' && task.completed) ||
     tabState.value == 'All';
-
 
 </script>
 
@@ -36,8 +36,7 @@ const shouldDisplay = (task: { id?: number, text: string, completed: boolean }) 
                 </p>
                 <div class="panel-block">
                     <p class="control has-icons-left">
-                        <input class="input" type="text" placeholder="What do you want to do" @keypress.enter="addTask"
-                            v-model="newTask">
+                        <input class="input" type="text" placeholder="What do you want to do" @keypress.enter="addTask" v-model="newTask">
                         <span class="icon is-left">
                             <i class="fas fa-plus" aria-hidden="true"></i>
                         </span>
@@ -57,6 +56,7 @@ const shouldDisplay = (task: { id?: number, text: string, completed: boolean }) 
                     </button>
                 </div>
             </div>
+
         </div>
     </main>
 </template>
